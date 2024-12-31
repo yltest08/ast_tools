@@ -1,16 +1,15 @@
-/*****************************************************
- *
- *
- * Author:  sml2h3
- * Date:    2021-03-12
- * File:    trademark_fix
- * Project: ast_tools
- *****************************************************/
 
 const parser = require("@babel/parser");
 const traverse = require("@babel/traverse").default;
 const types = require("@babel/types");
 const generator = require("@babel/generator").default;
+
+
+const RemoveVoid = require('../libs/yltest/RemoveVoid')
+const OperSwitch = require('../libs/yltest/OperSwitch')
+const IfToSwitch = require('../libs/yltest/IfToSwitch')
+
+
 
 const IfWithExpressFix = require('../libs/common/IfWithExpressFix')
 const ForWithExpressFix = require('../libs/common/ForWithExpressFix')
@@ -39,6 +38,7 @@ function fix(source_code) {
 
 
     // 内容修复
+    traverse(ast, RemoveVoid.fix)
     traverse(ast, VariableDeclaratorFix.fix)
     traverse(ast, ConditionalFix.fix)
 
@@ -58,13 +58,16 @@ function fix(source_code) {
 
     traverse(ast, UnaryFunctionFix.fix)
 
+    traverse(ast, OperSwitch.fix)
+    traverse(ast, IfToSwitch.fix)
+    
 
-    traverse(ast, ControlFlowFix.fix)
+    // traverse(ast, ControlFlowFix.fix)
     //
-    traverse(ast, ConstantFix.fix)
-    traverse(ast, DecryptVariableFix.fix)
-    traverse(ast, CleanNullFix.fix)
-    traverse(ast, ReserveStrFix.fix)
+    // traverse(ast, ConstantFix.fix)
+    // traverse(ast, DecryptVariableFix.fix)
+    // traverse(ast, CleanNullFix.fix)
+    // traverse(ast, ReserveStrFix.fix)
     // traverse(ast, deleteExtraVar.fix)
 
     const opts = {

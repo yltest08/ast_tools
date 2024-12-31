@@ -1,19 +1,11 @@
-/*****************************************************
- *
- *
- * Author:  sml2h3
- * Date:    2021-03-12
- * File:    main
- * Project: ast_tools
- *****************************************************/
 
 const fs = require("fs");
 const iconv = require('iconv-lite');
 const common_fix = require('./pro/demo1_fix')
 
 
-const source_path = './demos/demo1/source.js'
-const output_path = './demos/demo1/output.js'
+const source_path = './demos/demo1/fireyejs231.js'
+const output_path = './demos/demo1/output3.js'
 const content = fs.readFileSync(source_path, {encoding: 'binary'});
 const buf = new Buffer.from(content, 'binary');
 const source_code = iconv.decode(buf, 'utf-8');
